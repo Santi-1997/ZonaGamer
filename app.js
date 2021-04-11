@@ -40,6 +40,6 @@ app.use('/users', usersRoutes);
 
 //Servidor
 app.listen(3001, function(){
-    console.log('Servidor Corriendo en el puerto 3000')
+    console.log('Servidor Corriendo en el puerto 3001')
 });
 
