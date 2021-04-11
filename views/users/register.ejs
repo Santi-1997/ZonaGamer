@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="es">
+
+    <%- include("../partials/head", {Solapa:"ZG - Registro"}) %>
+
+<body>
+
+    <%- include('../partials/headerRegister') %> 
+
+    <main>
+        <form method="POST" action="/users/registro" enctype="multipart/form-data" class="form-user">
+
+            <h2>Crear cuenta</h2>
+
+            <div>
+                <label for="nombre">Ingrese su Nombre:</label>
+                <input
+                 id="name" 
+                 type="text" 
+                 name="name" 
+                 placeholder="Nombre Completo" 
+                 value="<%= locals.oldData ? oldData.name : null %>">
+
+                 <% if (locals.errors && errors.name) { %>
+                    <div class="text-error">
+                        <%= errors.name.msg %> 
+                    </div>
+                    <% } %>
+            </div>
+                    
+            <div>
+                <label for="usuario">Ingrese su Usuario:</i></label>
+                <input 
+                id="user" 
+                type="text" 
+                name="user" 
+                placeholder="Nombre de Usuario"
+                value="<%= locals.oldData ? oldData.user : null %>">
+
+                <% if (locals.errors && errors.user) { %>
+                    <div class="text-error">
+                        <%= errors.user.msg %> 
+                    </div>
+                    <% } %>
+            </div>
+                    
+            <div>
+                <label for="email">Ingrese su Email:</i></label>
+                <input 
+                id="email" 
+                type="text" 
+                name="email" 
+                placeholder="Email"
+                value="<%= locals.oldData ? oldData.email : null %>">
+
+                <% if (locals.errors && errors.email) { %>
+                    <div class="text-error">
+                        <%= errors.email.msg %> 
+                    </div>
+                    <% } %>
+            </div>
+                    
+            <div>
+                <label for="email">Ingrese la imagen </i></label>
+                <input id="image" type="file" name="image" placeholder="Agregar imagen">
+
+                <% if (locals.errors && errors.image) { %>
+                    <div class="text-error">
+                        <%= errors.image.msg %> 
+                    </div>
+                    <% } %>
+            </div>
+
+            <div>
+                <label for="contraseña">Ingrese su Contraseña</i></label>
+                <input 
+                id="contraseña" 
+                type="password" 
+                name="password" 
+                placeholder="Contraseña">
+
+                <% if (locals.errors && errors.password) { %>
+                    <div class="text-error">
+                        <%= errors.password.msg %> 
+                    </div>
+                    <% } %>
+            </div>
+
+            <div>
+                <label for="repetirContraseña">Repetir Contraseña</i></label>
+                <input 
+                id="repeatPassword" 
+                type="password" 
+                name="repeatPassword" 
+                placeholder="Repetir Contraseña">
+                
+                <% if (locals.errors && errors.repeatPassword) { %>
+                    <div class="text-error">
+                        <%= errors.repeatPassword.msg %> 
+                    </div>
+                    <% } %>
+            </div>
+
+            <div>
+                <button type="submit">Registrarme</button>
+            </div>
+
+            <hr>
+        </form>
+        <div class="form-user">
+            <div>
+                <h2>¿Ya tenés una cuenta?</h2>
+            </div>
+            <div>
+                <a href="/users/login">
+                    <button class="boton-nc" type="submit">Iniciar sesión</button>
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <%- include('../partials/footer') %> 
+
+    
+</body>
+
+</html>

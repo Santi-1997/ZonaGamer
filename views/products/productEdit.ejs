@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+
+    <%- include("../partials/head", {Solapa:"ZG - Producto Administrador"}) %>
+
+<body>
+
+    <%- include('../partials/header') %> 
+
+    <main>
+        <form action="?_method=PUT" method="POST" enctype="multipart/form-data" class="form-user">
+
+            <h2>EDITAR PRODUCTO:<%= old.nombre %></h2>
+
+            <div>
+                <label for="nombre">Nombre</label>
+                <input id="nombre" type="text" name="nombre" value="<%= old.nombre %>">
+            </div>
+
+            <div>
+                <label for="description">Descripcion</label>
+                <input id="description" type="text" name="descripcion" value="<%= old.descripcion %>">
+            </div>
+            
+            
+            <div>
+                <label>Agregar imagenes del producto:</label>
+                <input type="file" name="imagen" accept=".jpg, .png" multiple>
+            </div>
+            
+
+            <div>
+                <label for="price">Precio</label>
+                <input id="price" type="text" name="precio" value="$<%= old.precio %>">
+            </div>
+            
+            <div>
+                <label for="descuento">Descuento</label>
+                <input id="descuento" type="number" name="descuento" placeholder="descuento" value="<%= old.descuento %>">
+            </div>
+
+            <div>
+                <label>Categorías de interés:</label>
+                    <select name="interes">
+                        <option value="novedades" selected>Novedades</option>
+                        <option value="ofertas">Ofertas</option>
+                        <option value="visitados">visitados</option>
+                    </select>
+            </div>
+
+            <div>
+                <button type="submit">Actualizar Producto</button>
+            </div>
+
+        </form>
+    </main>
+
+    <%- include('../partials/footer') %> 
+
+    
+</body>
+
+
+
+</html>

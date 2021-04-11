@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+
+    <%- include("../partials/head", {Solapa:"ZG - Login"}) %>   
+
+<body>
+
+    <%- include('../partials/headerRegister') %> 
+
+    <main>
+        <form class="form-user" action="/users/login" method="POST">
+            <div>
+                <h2>Iniciar sesión</h2>
+                <p>Si tiene una cuenta, inicie sesión con su dirección de correo electrónico.</p>
+               
+            </div>
+            <div>
+                <label for="usuario">Ingrese el E-mail:</label>
+                <input id="usuario" type="text" name="email" placeholder="E-mail" value=<%= locals.oldData ? oldData.email : null %>>
+                <% if (locals.errors && errors.email) { %>
+                    <div class="text-error">
+                        <%= errors.email.msg %>
+                    </div>
+                <% } %>
+            </div>
+            <div>
+                <label for="clave">Contraseña</label>
+                <input id="clave" type="password" name="password" placeholder="Contraseña">
+            </div>
+            <div>
+                <label>
+                    <p>Recordar mi usuario</p>
+                    <input type="checkbox" name="remember_user">
+                </label>
+            </div>
+            <div>
+                <button type="submit">Enviar</button>
+                <a href="#">¿Olvidó su contraseña?</a>
+            </div>
+
+        </form>
+
+        <div class="form-user">
+            <h2>Nuevo usuario</h2>
+            <p>Crear una cuenta tiene muchos beneficios: Paga más rápido, puede guardar más de una dirección, seguimiento de pedidos y mucho más.</p>
+            <a href="/users/registro"><button class="boton-nc" type="submit">Crear una cuenta</button></a>
+        </div>
+        
+        
+
+    </main>
+
+    <%- include('../partials/footer') %> 
+
+
+</body>
+
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<%- include("../partials/head", {Solapa:"ZG - Productos"}) %>
+
+    <body>
+
+        <%- include('../partials/header') %>
+
+            <h1>PRODUCTOS</h1>
+
+            <section class="container-products">
+
+                <% if (productosJSON.length) { %>
+                 
+                <% for (product of productosJSON) { 
+                    let finalPrice = product.descuento ? (product.precio - product.precio * product.descuento / 100).toFixed(0) : product.precio; 
+                %>
+                    <article class="prod-contenedor">
+                        <a href="/products/detail/<%= product.id %>">
+                            <img src="/img/fotosMulter/<%= product.imagen %>" alt=""
+                                class="img-products-gral">
+
+                            <div class="products-gral">
+                                <i class="fas fa-truck"></i>
+                                <p class="prod-precio">
+                                    $<%= toThousand(finalPrice) %>
+                                </p>
+                                <p class="prod-descuento">
+                                    <%= product.descuento %>%OFF
+                                </p>
+                                <h4 class="prod-descripcion">
+                                    <%= product.nombre %>
+                                </h4>
+                            </div>
+                        </a>
+                    </article>
+                    <% } %>
+                    <% } %>
+            </section>
+
+            <%- include('../partials/footer') %>
+    </body>
+
+</html>
