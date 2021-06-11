@@ -10,44 +10,94 @@
     <main>
         <form action="?_method=PUT" method="POST" enctype="multipart/form-data" class="form-user">
 
-            <h2>EDITAR PRODUCTO:<%= old.nombre %></h2>
+            <h2>EDITAR PRODUCTO: <%= old.name %></h2>
 
             <div>
-                <label for="nombre">Nombre</label>
-                <input id="nombre" type="text" name="nombre" value="<%= old.nombre %>">
+                <label for="name">Nombre</label>
+                <input id="name" type="text" name="name" placeholder="Nombre Producto" value="<%= old.name %>">
+
+                <% if (locals.errors && errors.name) { %>
+                    <div class="text-error">
+                        <%= errors.name.msg %> 
+                    </div>
+                <% } %>
+
             </div>
 
             <div>
                 <label for="description">Descripcion</label>
-                <input id="description" type="text" name="descripcion" value="<%= old.descripcion %>">
+                <input id="description" type="text" name="description"
+                placeholder="Descripción" 
+                value="<%= old.description %>">
+
+                <% if (locals.errors && errors.description) { %>
+                    <div class="text-error">
+                        <%= errors.description.msg %> 
+                    </div>
+                <% } %>
+
             </div>
             
             
             <div>
                 <label>Agregar imagenes del producto:</label>
-                <input type="file" name="imagen" accept=".jpg, .png" multiple>
+                <input type="file" name="image" accept=".jpg, .png" multiple
+               >
+
+                <% if (locals.errors && errors.image) { %>
+                    <div class="text-error">
+                        <%= errors.image.msg %> 
+                    </div>
+                <% } %>
+
             </div>
             
 
             <div>
                 <label for="price">Precio</label>
-                <input id="price" type="text" name="precio" value="$<%= old.precio %>">
+                <input id="price" type="text" name="price" value="<%= old.price %>"
+                placeholder="Precio">
+
+                <% if (locals.errors && errors.price) { %>
+                    <div class="text-error">
+                        <%= errors.price.msg %> 
+                    </div>
+                <% } %>
+
             </div>
             
             <div>
-                <label for="descuento">Descuento</label>
-                <input id="descuento" type="number" name="descuento" placeholder="descuento" value="<%= old.descuento %>">
+                <label for="discount">Descuento</label>
+                <input id="discount" type="number" name="discount" placeholder="Descuento">
             </div>
 
             <div>
-                <label>Categorías de interés:</label>
-                    <select name="interes">
-                        <option value="novedades" selected>Novedades</option>
-                        <option value="ofertas">Ofertas</option>
-                        <option value="visitados">visitados</option>
-                    </select>
+                <label>Categoria</label>
+                <select name="category_id">
+                    <% category.forEach(category => { %>
+                    <option value="<%= category.id %>"><%= category.name %></option>
+                    <% }); %>
+                </select>
             </div>
 
+            <div>
+                <label>Consola:</label>
+                <select name="console_id">
+                    <% console.forEach(console => { %>
+                    <option value="<%= console.id %>"><%= console.name %></option>
+                    <% }); %>
+                </select>
+            </div>
+
+            <div>
+                <label>Tipo de producto</label>
+                <select name="product_type_id">
+                    <% productType.forEach(productType => { %>
+                    <option value="<%= productType.id %>"><%= productType.name %></option>
+                    <% }); %>
+                </select>
+            </div>
+            <ul class="errores"></ul>
             <div>
                 <button type="submit">Actualizar Producto</button>
             </div>
@@ -56,6 +106,7 @@
     </main>
 
     <%- include('../partials/footer') %> 
+    <script src="/js/editProductValidation.js"></script>
 
     
 </body>

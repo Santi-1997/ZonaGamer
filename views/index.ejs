@@ -49,8 +49,8 @@
 
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
 
-                            <li><a class="dropdown-item" href="#">Xbox</a></li>
-                            <li><a class="dropdown-item" href="#">PlayStation</a></li>
+                            <li><a class="dropdown-item" href="/products/xbox">Xbox</a></li>
+                            <li><a class="dropdown-item" href="/products/playStation">PlayStation</a></li>
 
                         </ul>
 
@@ -73,18 +73,18 @@
 
                         <a class="profile-logout" href="/users/logout"><i class="fas fa-sign-out-alt" title="Cerrar sesión"></i></a>
 
-                        <a href="/products/cart" target="_blank" title="Carrito"><i class="fas fa-shopping-basket" title="Ir al carrito"></i></a>
+                        <a href="/products/cart" title="Carrito"><i class="fas fa-shopping-basket" title="Ir al carrito"></i></a>
 
                         
                     <% } else {%>   
                     
-                    <a href="/users/registro" target="_blank" title="Registrarse"><i class="far fa-id-card"></i></a>
-
-                    <a href="/users/login" target="_blank" title="Loguearse"><i class="fas fa-sign-in-alt"></i></a>
+                    <a href="/users/registro" title="Registrarse"><i class="far fa-id-card"></i></a>
+                    <a href="/users/login" title="Loguearse"><i class="fas fa-sign-in-alt"></i></a>
+                    <a href="/products/cart" title="Carrito"><i class="fas fa-shopping-basket" title="Ir al carrito"></i></a>
                     <% } %>
                     
 
-                    <input class="form-control me-2" type="search" name="keywords" placeholder="Buscar" aria-label="Search">
+                    <input class="form-control me-2" type="search" name="search" placeholder="Buscar" aria-label="Search">
 
                     <button class="btn btn-outline-success" type="submit">Buscar</button>
 
@@ -98,6 +98,12 @@
 
 
     <main>
+        <!-- Agregar banner para Mobile -->
+        <div class="banner-mobile">
+            <img src="/img/juegos_01_Assasin_mobile_3.jpg" alt="...">
+            <h1><em>ANIMATE A VIVIR EN MODO GAMER</em></h1>
+        </div>
+        <!-- <img src="" alt=""> -->
 
         <!--Carrusel Bootstrap 5-->
         <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
@@ -118,7 +124,7 @@
             <div class="carousel-inner">
 
                 <div class="carousel-item active">
-                    <a href="/products/detail/5">
+                    <a href="/products/detail/11">
                     <img src="/img/slide_fifa_b.jpg" class="d-block w-100" alt="...">
                 </a>
                     <div class="carousel-caption d-none d-md-block">
@@ -128,7 +134,7 @@
                 </div>
 
                 <div class="carousel-item">
-                    <a href="/products/detail/6">
+                    <a href="/products/detail/56">
                         <img src="/img/slide_dirt.jpg" class="d-block w-100" alt="...">
                     </a>
                         <div class="carousel-caption d-none d-md-block">
@@ -138,7 +144,7 @@
                     </div>
 
                 <div class="carousel-item">
-                        <a href="/products/detail/4">
+                        <a href="/products/detail/57">
                         <img src="/img/slide_assassins_b.jpg" class="d-block w-100" alt="...">
                     </a>
                         <div class="carousel-caption d-none d-md-block">
@@ -148,7 +154,7 @@
                     </div>
 
                 <div class="carousel-item">
-                    <a href="/products/detail/0">
+                    <a href="/products/detail/3">
                     <img src="/img/slide_ps5_b.jpg" class="d-block w-100" alt="...">
                 </a>
                     <div class="carousel-caption d-none d-md-block">
@@ -159,7 +165,7 @@
                 
 
                 <div class="carousel-item">
-                    <a href="/products/detail/3">
+                    <a href="/products/detail/10">
                         <img src="/img/slide_xbox_b.jpg" class="d-block w-100" alt="...">
                     </a>
                         <div class="carousel-caption d-none d-md-block">
@@ -185,74 +191,92 @@
         </div>
 
         <div class="duos">
-            <article class="plays"><img src="/img/PS5_logo.png" alt="logo Play"></article>
-            <article class="xbox"><img src="/img/xbox_logo_2.png" alt="logo XBox"></article>
+            <article class="plays" id="ps"><a href="/products/playStation"><img src="/img/PS5_logo.png" alt="logo Play"></a></article>
+            <article class="xbox" id="xb"><a href="/products/xBox"><img src="/img/xbox_logo_2.png" alt="logo XBox"></a></article>
         </div>
+
+        <section class="novedades" id="seccion-novedades">
+            <h3 class="titulo-section">NOVEDADES</h3>
+
+            
+            <% for (let i=0 ; i<products.length; i++) { %> 
+                <% if (products[i].category_id == 2) { 
+                    let finalPrice = products[i].discount ? (products[i].price - products[i].price * products[i].discount / 100).toFixed(0) : products[i].price; %>
+                    
+                    <article class="prod-contenedor">
+                        <div class="img-producto">
+                            <a href="/products/detail/<%= products[i].id %>">
+                                <img src="/img/fotosMulter/<%= products[i].image %>" alt="" class="img-producto">
+                            </a>
+                        </div>
+
+                        <div class="products-gral">
+                            <i class="fas fa-truck"></i>
+                            <p class="prod-precio">
+                                $<%= toThousand(finalPrice) %>
+                            </p>
+                            <p class="prod-descuento">
+                                <%= products[i].discount %>%OFF
+                            </p>
+                            <h4 class="prod-descripcion">
+                                <%= products[i].name %>
+                            </h4>
+                        </div>
+                        
+                    </article>
+                <% } %>
+
+            <% } %>
+            
+        </section>
+        
+        <div class="img-banner-contenedor">
+            <img src="/img/banner-index.jpg" alt="banner de personajes" class="img-banner">
+        </div>
+
 
         <section class="ofertas" id="seccion-ofertas">
             <h3 class="titulo-section">OFERTAS</h3>
 
-            <% if (ofertas.length) { %>
+            <!-- creamos un FOR para recorrer la DB de productos -->
+            <% for (let i=0 ; i<products.length; i++) { %> 
 
-                <% for (oferta of ofertas) { 
-                    let finalPrice = oferta.descuento ? (oferta.precio - oferta.precio * oferta.descuento / 100).toFixed(0) : oferta.precio; %>
+                    <!-- creamos un IF para cumplir que sea OFERTA -->
+                    <% if (products[i].category_id == 1) { 
+                        let finalPrice = products[i].discount ? (products[i].price - products[i].price * products[i].discount / 100).toFixed(0) : products[i].price; %>
+                        
                     <article class="prod-contenedor">
-                        <a href="/products/detail/<%= oferta.id %>">
-                            <img src="/img/fotosMulter/<%= oferta.imagen %>" alt="" class="img-producto">
+                        <div class="img-producto">
+                            <a href="/products/detail/<%= products[i].id %>">
+                                <img src="/img/fotosMulter/<%= products[i].image %>" alt="" class="img-producto">
+                            </a>
+                        </div>
 
-                            <div class="producto">
-                                <i class="fas fa-truck"></i>
-                                <p class="precio">
-                                    $<%= toThousand(finalPrice) %>
-                                </p>
-                                <p class="descuento">
-                                    <%= oferta.descuento %>%OFF
-                                </p>
-                                <h4 class="descripcion">
-                                    <%= oferta.nombre %>
-                                </h4>
-                            </div>
-                        </a>
-                    </article>
-                    <% } %>
-                        <% } %>
-        </section>
-
-        <img src="/img/banner-index.jpg" alt="" class="img-banner">
-
-
-        <section class="novedades" id="seccion-novedades">
-            <h3 class="titulo-section">NOVEDADES</h3>
-            <% if(novedades.length) { %>
-                <% for (novedad of novedades) { let finalPrice=novedad.descuento ? (novedad.precio - novedad.precio *
-                    novedad.descuento / 100).toFixed(0) : novedad.precio; %>
-                    <article class="prod-contenedor">
-                        <a href="/products/detail/<%= novedad.id %>">
-                            <img src="/img/fotosMulter/<%= novedad.imagen %>" alt="" class="img-producto">
-
-                            <div class="producto">
-                                <i class="fas fa-truck"></i>
-                                <p class="precio">
-                                    $<%= toThousand(finalPrice) %>
-                                </p>
-                                <p class="descuento">
-                                    <%= novedad.descuento %>%OFF
-                                </p>
-                                <h4 class="descripcion">
-                                    <%= novedad.nombre %>
-                                </h4>
-                            </div>
-                        </a>
+                        <div class="products-gral">
+                            <i class="fas fa-truck"></i>
+                            <p class="prod-precio">
+                                $<%= toThousand(finalPrice) %>
+                            </p>
+                            <p class="prod-descuento">
+                                <%= products[i].discount %>%OFF
+                            </p>
+                            <h4 class="prod-descripcion">
+                                <%= products[i].name %>
+                            </h4>
+                        </div>
+                        
                     </article>
                 <% } %>
+
             <% } %>
+
         </section>
 
     </main>
 
     <%- include('./partials/footer') %>
 
-
+    <script src="/js/menuDuos.js"></script>
 </body>
 
 </html>

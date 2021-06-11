@@ -7,33 +7,42 @@
 
         <%- include('../partials/header') %>
 
-            <h1>PRODUCTOS</h1>
+            <h1>Productos</h1>
 
+            <% if(userLogged && userLogged.isAdmin == true){ %>
+            
+            <a class="create-btn" href="/products/create">Crear Producto</a>
+
+            <% } %> 
+
+            
             <section class="container-products">
 
-                <% if (productosJSON.length) { %>
+                <% if (products.length) { %>
                  
-                <% for (product of productosJSON) { 
-                    let finalPrice = product.descuento ? (product.precio - product.precio * product.descuento / 100).toFixed(0) : product.precio; 
+                <% for (product of products) { 
+                    let finalPrice = product.discount ? (product.price - product.price * product.discount / 100).toFixed(0) : product.price; 
                 %>
                     <article class="prod-contenedor">
-                        <a href="/products/detail/<%= product.id %>">
-                            <img src="/img/fotosMulter/<%= product.imagen %>" alt=""
-                                class="img-products-gral">
+                        <div class="img-producto">
+                            <a href="/products/detail/<%= product.id %>">
+                                <img src="/img/fotosMulter/<%= product.image %>" alt="<%= product.name %>"
+                                    class="img-producto">
+                            </a>
+                        </div>
 
-                            <div class="products-gral">
-                                <i class="fas fa-truck"></i>
-                                <p class="prod-precio">
-                                    $<%= toThousand(finalPrice) %>
-                                </p>
-                                <p class="prod-descuento">
-                                    <%= product.descuento %>%OFF
-                                </p>
-                                <h4 class="prod-descripcion">
-                                    <%= product.nombre %>
-                                </h4>
-                            </div>
-                        </a>
+                        <div class="products-gral">
+                            <i class="fas fa-truck"></i>
+                            <p class="prod-precio">
+                                $<%= toThousand(finalPrice) %>
+                            </p>
+                            <p class="prod-descuento">
+                                <%= product.discount %>%OFF
+                            </p>
+                            <h4 class="prod-descripcion">
+                                <%= product.name %>
+                            </h4>
+                        </div>
                     </article>
                     <% } %>
                     <% } %>

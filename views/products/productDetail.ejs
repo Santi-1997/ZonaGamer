@@ -10,33 +10,42 @@
 
     <main class="main-producto">
 
-        <% let finalPrice = productDetail.descuento ? (productDetail.precio - productDetail.precio * productDetail.descuento / 100).toFixed(0) : productDetail.precio; %>
+        <% let finalPrice = productDetail.discount ? (productDetail.price - productDetail.price * productDetail.discount / 100).toFixed(0) : productDetail.price; %>
    
         <div class="producto">
-            <h1><%= productDetail.nombre %></h1>
-            <img src="/img/fotosMulter/<%= productDetail.imagen %>"  alt="Imagen del producto">
+            <h1><%= productDetail.name %></h1>
+            <img src="/img/fotosMulter/<%= productDetail.image %>"  alt="Imagen del producto">
         </div>
     
         <div class="barra-precio">
             <h2>Descripción</h2>
-            <p> <%= productDetail.descripcion %> </p>    
-            <h2 class="precio">$<%= toThousand(finalPrice) %> </h2>
-            <p class="descuento"><%= productDetail.descuento %>%OFF </p>
+            <p> <%= productDetail.description %> </p>    
+            <h2>$<%= toThousand(finalPrice) %> </h2>
+            <span class="precio" style="display: none"><%=finalPrice%></span>
+            <p class="descuento"><%= productDetail.discount + " %OFF"%> </p>
             <p class="color">12 cuotas s/interés</p>
+            <div class="cant">
+                <label class="count">Cantidad</label>
+                <button class="menos" onclick="contadormenos()">-</button>
+                <input id="count" type="text" value="1" style="text-align: center; width: 30px;" >
+                <button class="menos" onclick="contadormas()">+</button>
+            </div>
         </div>
         
-        
+        <!-- SI ESTA LOGEADO SE MUESTA COMPRAR Y BORRAR -->
         <div class="botones">
-            <!--BOTON COMPRAR-->
-            <button type="submit"class="boton-formulario"><p>Comprar </p><i class="fas fa-shopping-cart"></i></button>
+                <% if(locals.isLogged && userLogged.isAdmin == true) { %>
+                <!--BOTON EDITAR-->
+                <a href="/products/edit/<%= productDetail.id %> "><button type="submit"class="boton-formulario"><i class="fas fa-edit"></i></button></a>
 
-            <!--BOTON EDITAR-->
-            <a href="/products/edit/<%= productDetail.id %> "><button type="submit"class="boton-formulario"><p>Editar </p><i class="fas fa-edit"></i></button></a>
-
-            <form action="/products/delete/<%= productDetail.id %>?_method=DELETE" method="POST">
-                <!--BOTON BORRAR-->
-                <button type="submit" class="boton-formulario"><p>Borrar </p><i class="fas fa-trash-alt"></i></button>
-            </form>
+                <form action="/products/delete/<%= productDetail.id %>?_method=DELETE" method="POST">
+                    <!--BOTON BORRAR-->
+                    <button type="submit" class="boton-formulario"><i class="fas fa-trash-alt"></i></button>
+                </form>
+                <% } %>
+                     <!-- SI NO ESTA LOGEADO SOLO MUESTRA COMPRAR -->
+                     <!--BOTON COMPRAR-->
+                    <a href=""><button type="submit"class="boton-formulario-shop"><i class="fas fa-shopping-cart"></i></button></a>
         </div>
 
     
@@ -44,7 +53,8 @@
 
     <%- include('../partials/footer') %> 
 
-
+    <script src="/js/agregarProducto.js"></script>
+    <script src="/js/contadorProds.js"></script>
 </body>
 
 </html>

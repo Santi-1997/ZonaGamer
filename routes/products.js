@@ -4,34 +4,34 @@ const router = express.Router();
 const multer = require('multer');
 const productsController = require('../controllers/productsController');
 
-// Multer
-const storage = multer.diskStorage({ 
-    destination: function (req, file, cb) { 
-      cb(null, path.join(__dirname, '../public/img/fotosMulter')); 
-    }, 
-    filename: function (req, file, cb) { 
-       cb(null, `${file.fieldname}-${Date.now()}${path.extname(file.originalname)}`);  
-    } 
-  })
+const adminMiddleware = require('../middlewares/adminMiddleware');
+const uploadProducts = require('../middlewares/multerProductsMd');
+const validationProducts = require('../middlewares/validateProductsMd');
+const editProductsValidation = require('../middlewares/validateEditProductsMd');
 
-  var upload = multer({ storage: storage });
 
 // INDEX
 router.get('/', productsController.index)
 
 //ESTO ES LO QUE VA DESPUES DE /PRODUCTOS!!!!!
-router.get('/cart', productsController.show);
+
+//Ruta de Carrito de Compras
+router.get('/cart', productsController.cart);
+
+//Vistas menu Duos
+router.get('/playStation', productsController.playStation);
+router.get('/xbox', productsController.xbox);
 
 // DETALLE DEL PRODUCTO
 router.get('/detail/:id', productsController.detail);
 
 // CREACION DEL PRODUCTO
-router.get('/create', productsController.create);
-router.post('/create', upload.any(), productsController.store);
+router.get('/create', adminMiddleware, productsController.create);
+router.post('/create', uploadProducts.single('image'), validationProducts, productsController.store);
 
 // EDICION DEL PRODUCTO
-router.get('/edit/:id', productsController.edit);
-router.put('/edit/:id', upload.any(), productsController.update);
+router.get('/edit/:id', adminMiddleware, productsController.edit);
+router.put('/edit/:id', uploadProducts.single('image'), editProductsValidation, productsController.update);
 
 // ELIMINACION DEL PRODUCTO
 router.delete('/delete/:id', productsController.delete),

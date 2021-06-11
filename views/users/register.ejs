@@ -12,43 +12,29 @@
 
             <h2>Crear cuenta</h2>
 
+            
             <div>
-                <label for="nombre">Ingrese su Nombre:</label>
+                <label for="fullName">Ingrese su Nombre y Apellido:</label>
                 <input
-                 id="name" 
+                 id="fullName" 
                  type="text" 
-                 name="name" 
+                 name="fullName" 
                  placeholder="Nombre Completo" 
-                 value="<%= locals.oldData ? oldData.name : null %>">
+                 value="<%= locals.oldData ? oldData.fullName : null %>">
 
-                 <% if (locals.errors && errors.name) { %>
+                 <% if (locals.errors && errors.fullName) { %>
                     <div class="text-error">
-                        <%= errors.name.msg %> 
+                        <%= errors.fullName.msg %> 
                     </div>
                     <% } %>
             </div>
                     
-            <div>
-                <label for="usuario">Ingrese su Usuario:</i></label>
-                <input 
-                id="user" 
-                type="text" 
-                name="user" 
-                placeholder="Nombre de Usuario"
-                value="<%= locals.oldData ? oldData.user : null %>">
-
-                <% if (locals.errors && errors.user) { %>
-                    <div class="text-error">
-                        <%= errors.user.msg %> 
-                    </div>
-                    <% } %>
-            </div>
                     
             <div>
                 <label for="email">Ingrese su Email:</i></label>
                 <input 
                 id="email" 
-                type="text" 
+                type="email" 
                 name="email" 
                 placeholder="Email"
                 value="<%= locals.oldData ? oldData.email : null %>">
@@ -61,7 +47,7 @@
             </div>
                     
             <div>
-                <label for="email">Ingrese la imagen </i></label>
+                <label for="image">Ingrese la imagen </i></label>
                 <input id="image" type="file" name="image" placeholder="Agregar imagen">
 
                 <% if (locals.errors && errors.image) { %>
@@ -74,10 +60,12 @@
             <div>
                 <label for="contraseña">Ingrese su Contraseña</i></label>
                 <input 
-                id="contraseña" 
+                id="password" 
                 type="password" 
                 name="password" 
-                placeholder="Contraseña">
+                placeholder="Contraseña"
+                value="<%= locals.oldData ? oldData.password : null %>">
+                
 
                 <% if (locals.errors && errors.password) { %>
                     <div class="text-error">
@@ -87,31 +75,82 @@
             </div>
 
             <div>
-                <label for="repetirContraseña">Repetir Contraseña</i></label>
+                <label for="address">Dirección</i></label>
                 <input 
-                id="repeatPassword" 
-                type="password" 
-                name="repeatPassword" 
-                placeholder="Repetir Contraseña">
-                
-                <% if (locals.errors && errors.repeatPassword) { %>
-                    <div class="text-error">
-                        <%= errors.repeatPassword.msg %> 
-                    </div>
-                    <% } %>
-            </div>
+                id="address" 
+                type="text" 
+                name="address" 
+                placeholder="Dirección"
+                value="<%= locals.oldData ? oldData.address : null %>">
 
+                <% if (locals.errors && errors.address) { %>
+                    <div class="text-error">
+                        <%= errors.address.msg %> 
+                    </div>
+                <% } %>
+            </div>
+            
+            
             <div>
+                <label for="location">Localidad</i></label>
+                <input 
+                id="location" 
+                type="text" 
+                name="location" 
+                placeholder="Localidad"
+                value="<%= locals.oldData ? oldData.location : null %>">
+
+                <% if (locals.errors && errors.location) { %>
+                    <div class="text-error">
+                        <%= errors.location.msg %> 
+                    </div>
+                <% } %>
+            </div>
+            
+            <div>
+                <label for="postalCode">Código postal</i></label>
+                <input 
+                id="postalCode" 
+                type="number" 
+                name="postalCode" 
+                placeholder="Código postal"
+                value="<%= locals.oldData ? oldData.postalCode : null %>">
+
+                <% if (locals.errors && errors.postalCode) { %>
+                    <div class="text-error">
+                        <%= errors.postalCode.msg %> 
+                    </div>
+                <% } %>
+            </div>
+            
+            <div>
+                <label for="phone">Teléfono</i></label>
+                <input 
+                id="phone" 
+                type="number" 
+                name="phone" 
+                placeholder="Teléfono"
+                value="<%= locals.oldData ? oldData.phone : null %>">
+
+                <% if (locals.errors && errors.phone) { %>
+                    <div class="text-error">
+                        <%= errors.phone.msg %> 
+                    </div>
+                <% } %>
+            </div>
+            <ul class="errores"></ul>
+            <div class="submit">
                 <button type="submit">Registrarme</button>
             </div>
 
-            <hr>
         </form>
-        <div class="form-user">
-            <div>
-                <h2>¿Ya tenés una cuenta?</h2>
-            </div>
-            <div>
+        
+        <hr>
+        <div class="form-user ask">
+            
+            <h2>¿Ya tenés una cuenta?</h2>
+            
+            <div class="submit">
                 <a href="/users/login">
                     <button class="boton-nc" type="submit">Iniciar sesión</button>
                 </a>
@@ -121,7 +160,7 @@
 
     <%- include('../partials/footer') %> 
 
-    
+    <script src="/js/registerValidations.js"></script>
 </body>
 
 </html>
